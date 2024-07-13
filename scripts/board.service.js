@@ -56,15 +56,15 @@ async function getAllBoards() {
             tdColorWrapper.setAttribute('scope', 'row');
             tdColorWrapper.appendChild(colorTdDiv);
 
-            const openButton = document.createElement('button');
-            openButton.textContent = 'Open';
-            openButton.classList.add('btn', 'btn-success');
-            openButton.addEventListener('click', () => openBoardViewerModal(id));
+            const viewButton = document.createElement('button');
+            viewButton.textContent = 'View';
+            viewButton.classList.add('btn', 'btn-success');
+            viewButton.addEventListener('click', () => openBoardViewerModal(id));
 
-            const tdOpen = document.createElement('td');
-            tdOpen.setAttribute('scope', 'row');
-            tdOpen.classList.add('button-table-data');
-            tdOpen.appendChild(openButton);
+            const tdView = document.createElement('td');
+            tdView.setAttribute('scope', 'row');
+            tdView.classList.add('button-table-data');
+            tdView.appendChild(viewButton);
 
             const editButton = document.createElement('button');
             editButton.textContent = 'Edit';
@@ -91,7 +91,7 @@ async function getAllBoards() {
             tdDelete.classList.add('button-table-data');
             tdDelete.appendChild(deleteButton);
 
-            row.append(tdTitle, tdSubtitle, tdColorWrapper, tdOpen, tdEdit, tdDelete);
+            row.append(tdTitle, tdSubtitle, tdColorWrapper, tdView, tdEdit, tdDelete);
             fragment.appendChild(row);
         });
 
