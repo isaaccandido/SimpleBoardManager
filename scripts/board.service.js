@@ -1,17 +1,3 @@
-const base_url = 'http://localhost:8080';
-const boards_endpoint = '/boards';
-const columns_endpoint = '/columns';
-const cards_endpoint = '/cards';
-const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-const hexColorRegex = /^[0-9a-fA-F]{6}$/;
-
-const colorPicker = new iro.ColorPicker('#picker');
-
-document.addEventListener('DOMContentLoaded', getAllBoards);
-document.getElementById('get-all-boards-button').addEventListener('click', getAllBoards);
-document.getElementById('add-board-button').addEventListener('click', () => openBoardEditorModal());
-document.getElementById('save-board-button').addEventListener('click', saveBoard);
-
 async function getAllBoards() {
     try {
         const response = await communicate(`${base_url}${boards_endpoint}`, null, 'GET');
@@ -115,38 +101,6 @@ async function getAllBoards() {
     }
 }
 
-function openBoardEditorModal(id = null, title = '', subtitle = '', color = '', editing = false) {
-    debugger
-
-    color = color.toLocaleUpperCase();
-
-    if (!hexColorRegex.test(color)) {
-        color = '#FFFFFF';
-    }
-
-    if (!color.startsWith('#')) {
-        color = `#${color}`;
-    }
-
-    colorPicker.color.hexString = color;
-
-    colorPicker.on('color:change', (color) => {
-        document.getElementById('board-color-input').value = color.hexString.toUpperCase();
-    });
-
-    document.getElementById('addBoardModalTitle').innerText = editing ? `Editing board '${title}'` : 'Create Board';
-    document.getElementById('board-title-input').value = title;
-    document.getElementById('board-subtitle-input').value = subtitle;
-    document.getElementById('board-color-input').value = !!color ? color : '#FFFFFF';
-    document.getElementById('save-board-button').dataset.id = id || '';
-
-    $('#addBoardModal').modal('show');
-}
-
-function openBoardViewerModal(id) {
-    $('#boardViewModal').modal('show');
-}
-
 async function saveBoard() {
     const id = document.getElementById('save-board-button').dataset.id;
     const title = document.getElementById('board-title-input').value;
@@ -156,59 +110,9 @@ async function saveBoard() {
     const method = id ? 'PUT' : 'POST';
     const url = id ? `${base_url}${boards_endpoint}/${id}` : `${base_url}${boards_endpoint}`;
 
-    if (!validatePayload(id, title, color, method)) return;
+    if (!validateBoardPayload(id, title, color, method)) return;
 
     await communicate(url, { title, subtitle, color }, method);
     $('#addBoardModal').modal('hide');
     await getAllBoards();
-}
-
-function validatePayload(id, title, color, method) {
-    if (method !== 'POST' && !uuidRegex.test(id)) {
-        alert(`This POST operation requires a valid id! Cannot update '${title}!'`);
-        return false;
-    }
-
-    if (!title || title.length < 3) {
-        alert(`Title must have 3 or more characters!`);
-        return false;
-    }
-
-    if (!hexColorRegex.test(color)) {
-        alert(`The color '${color}' is not a valid HEX color!`);
-        return false;
-    }
-
-    return true;
-}
-
-async function communicate(url, body = null, method = 'GET') {
-    const options = {
-        method: method,
-    };
-
-    if (method === 'POST' || method === 'PUT') {
-        options.body = JSON.stringify(body);
-        options.headers = {
-            'Content-Type': 'application/json'
-        };
-    }
-
-    try {
-        const response = await fetch(url, options);
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        if (method !== 'DELETE') {
-            const json = await response.json();
-            return json;
-        }
-
-        return response.ok;
-    } catch (error) {
-        console.error('Error:', error);
-        alert(`Error: ${error.message}`);
-        throw error;
-    }
 }

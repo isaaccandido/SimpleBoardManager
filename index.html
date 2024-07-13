@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Board Manager</title>
-    <script src="scripts.js" defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -18,16 +17,28 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <script src="scripts/web.service.js" defer></script>
+    <script src="scripts/board.service.js" defer></script>
+    <script src="scripts/column.service.js" defer></script>
+    <script src="scripts/validator.service.js" defer></script>
+    <script src="scripts/main.js" defer></script>
+    <link rel="stylesheet" href="styles/styles.css">
 </head>
 
 <body>
+    <div id="heading-section">
+        <h1>Board Manager v1.0</h1>
+        <h4>This is the kind of thing you do when you've got nothing else to do.</h4>
+    </div>
     <main>
-        <div class="buttons-section btn-group" role="group">
-            <button id="get-all-boards-button" type="button" class="btn btn-success">Refresh board listing</button>
+        <div class="buttons-section" role="group">
+            <button id="get-all-boards-button" type="button" class="btn btn-success">Refresh Boards</button>
             <button id="add-board-button" type="button" class="btn btn-primary" data-toggle="modal"
-                data-target="#addBoardModal">
-                Add Board!
-            </button>
+                data-target="#addBoardModal">Add a Board</button>
         </div>
         <table class="table table-striped table-dark">
             <thead>
@@ -89,7 +100,19 @@
                         </button>
                     </div>
                     <div class="modal-body">
-
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm">
+                                    One of three columns
+                                </div>
+                                <div class="col-sm">
+                                    One of three columns
+                                </div>
+                                <div class="col-sm">
+                                    One of three columns
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                     <div class="modal-footer">
@@ -101,57 +124,5 @@
 
     </main>
 </body>
-<style>
-    body {
-        background-color: #454d55;
-        margin: 2% 5%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .buttons-section {
-        margin-left: auto;
-        margin-right: auto;
-        align-items: center;
-        padding: 1.2rem;
-    }
-
-    th,
-    td {
-        text-align: center;
-    }
-
-    .table-row-item:hover {
-        background-color: #44484b !important;
-    }
-
-    .button-table-data {
-        width: 0;
-    }
-
-    .button-table-data button {
-        width: 70px;
-    }
-
-    .buttons-section button {
-        width: 200px;
-    }
-
-    .input-casing {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .input-casing * {
-        text-align: center;
-        margin: 0 auto;
-    }
-
-    .input-casing label {
-        padding: 3px;
-        font-weight: 700;
-    }
-</style>
 
 </html>

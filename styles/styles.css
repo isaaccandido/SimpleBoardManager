@@ -1,0 +1,75 @@
+    html * {
+        font-family: "Montserrat", sans-serif;
+        font-optical-sizing: auto;
+    }
+
+    body {
+        background-color: #454d55;
+        margin: 2% 20%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #heading-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    h1 {
+        color: white;
+        font-weight: 700;
+    }
+
+    h4 {
+        color: white;
+        font-weight: 100;
+    }
+
+    .buttons-section {
+        display: flex;
+        justify-content: space-between;
+        padding: 4% 2% 0.7% 2%;
+        margin: 0 30%;
+    }
+
+    th {
+        font-weight: 700;
+    }
+
+    th,
+    td {
+        text-align: center;
+    }
+
+    .table-row-item:hover {
+        background-color: #44484b !important;
+    }
+
+    .button-table-data {
+        width: 0;
+    }
+
+    .button-table-data button {
+        width: 70px;
+    }
+
+    .buttons-section button {
+        width: 200px;
+    }
+
+    .input-casing {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .input-casing * {
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .input-casing label {
+        padding: 3px;
+        font-weight: 700;
+    }
