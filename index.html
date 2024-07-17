@@ -22,6 +22,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <script src="scripts/web.service.js" defer></script>
+    <script src="scripts/modal.service.js" defer></script>
     <script src="scripts/board.service.js" defer></script>
     <script src="scripts/column.service.js" defer></script>
     <script src="scripts/validator.service.js" defer></script>
@@ -99,19 +100,10 @@
                     </div>
                     <div class="modal-body">
                         <div class="container">
-                            <div class="row">
-                                <div class="col-sm">
-                                    One of three columns
-                                </div>
-                                <div class="col-sm">
-                                    One of three columns
-                                </div>
-                                <div class="col-sm">
-                                    One of three columns
-                                </div>
+                            <div id="columnContainer" class="row">
+                                <!-- cards load here -->
                             </div>
                         </div>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

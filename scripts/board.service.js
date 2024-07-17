@@ -1,3 +1,5 @@
+const colorPicker = new iro.ColorPicker('#picker');
+
 async function getAllBoards() {
     try {
         const response = await communicate(`${base_url}${boards_endpoint}`, null, 'GET');
@@ -59,7 +61,13 @@ async function getAllBoards() {
             const viewButton = document.createElement('button');
             viewButton.textContent = 'View';
             viewButton.classList.add('btn', 'btn-success');
-            viewButton.addEventListener('click', () => openBoardViewerModal(id));
+            viewButton.addEventListener('click', async () => {
+                await getAllColumns(id);
+                const boardTitle = document.getElementById('boardViewModalTitle');
+                boardTitle.innerText = `Viewing board '${title}'`;
+
+                openBoardViewerModal();
+            });
 
             const tdView = document.createElement('td');
             tdView.setAttribute('scope', 'row');
@@ -79,12 +87,7 @@ async function getAllBoards() {
             const deleteButton = document.createElement('button');
             deleteButton.textContent = 'Delete';
             deleteButton.classList.add('btn', 'btn-danger');
-            deleteButton.addEventListener('click', async () => {
-                if (!confirm(`Are you sure you want to delete board '${title}'?`)) return;
-
-                await communicate(`${base_url}${boards_endpoint}/${id}`, null, 'DELETE');
-                await getAllBoards();
-            });
+            deleteButton.addEventListener('click', () => deleteBoard(id, title));
 
             const tdDelete = document.createElement('td');
             tdDelete.setAttribute('scope', 'row');
@@ -114,5 +117,12 @@ async function saveBoard() {
 
     await communicate(url, { title, subtitle, color }, method);
     $('#addBoardModal').modal('hide');
+    await getAllBoards();
+}
+
+async function deleteBoard(id, title) {
+    if (!confirm(`Are you sure you want to delete board '${title}'?`)) return;
+
+    await communicate(`${base_url}${boards_endpoint}/${id}`, null, 'DELETE');
     await getAllBoards();
 }
